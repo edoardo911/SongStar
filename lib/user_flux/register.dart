@@ -3,7 +3,6 @@ import 'package:song_star/utils/custom_widgets.dart';
 import 'package:bcrypt/bcrypt.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'dart:ui';
 
 import '../home/home.dart';
 

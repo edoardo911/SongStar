@@ -108,18 +108,18 @@ class AlbumSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         onPressed: () => Navigator.pushNamed(
-            context,
-            "/album",
-            arguments: {
-              "album": getAlbumID(data?["external_urls"]["spotify"]),
-              "token": token
-            }
+          context,
+          "/album",
+          arguments: {
+            "album": getAlbumID(data?["external_urls"]["spotify"]),
+            "token": token
+          }
         ),
         style: TextButton.styleFrom(
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadiusGeometry.zero,
-            )
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.zero,
+          )
         ),
         child: Row(
           mainAxisSize: MainAxisSize.max,

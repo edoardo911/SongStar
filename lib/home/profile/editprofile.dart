@@ -98,7 +98,7 @@ class _EditProfileState extends State<EditProfile> {
         .update({
       "username": usernameController.text,
       "spotify": spotify,
-      "am": amController.text,
+      "am": am,
       "sc": sc,
       "cc": countryController.text.substring(0, 2)
     });

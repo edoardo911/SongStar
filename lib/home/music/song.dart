@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -86,11 +87,10 @@ class _SongState extends State<Song> {
     } else {
       final rating = {
         "albumid": song["album"]["id"],
-        "comment": commentController.text,
+        "comment": commentController.text.substring(0, min(100, commentController.text.length)),
         "date": Timestamp.now(),
         "rating": rate,
         "songid": song["id"],
-        "stars": 0,
         "userid": await _storage.read(key: "userid")
       };
       await FirebaseFirestore.instance
@@ -117,7 +117,6 @@ class _SongState extends State<Song> {
         "date": Timestamp.now(),
         "rating": myRating["rating"],
         "songid": song["id"],
-        "stars": 0,
         "userid": await _storage.read(key: "userid")
       };
       String docId = myRating["id"];
@@ -361,11 +360,6 @@ class _RatingWidgetState extends State<RatingWidget> {
     }
   }
 
-  String timestampToString(Timestamp ts) {
-    DateTime dt = ts.toDate();
-    return "${dt.day}-${dt.month}-${dt.year}";
-  }
-
   @override
   void initState() {
     super.initState();
@@ -397,11 +391,19 @@ class _RatingWidgetState extends State<RatingWidget> {
             children: [
               Row(
                 children: [
-                  Text(
-                    user?.username ?? "",
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white
+                  Container(
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width * 0.6
+                    ),
+                    child: Text(
+                      user?.username ?? "",
+                      maxLines: 1,
+                      softWrap: false,
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.white
+                      ),
                     ),
                   ),
                   SizedBox(width: 10),
@@ -431,14 +433,28 @@ class _RatingWidgetState extends State<RatingWidget> {
               width: MediaQuery.of(context).size.width * 0.75,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Text(
-                  widget.data?["comment"],
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 20
-                  ),
-                ),
+                child: Builder(builder: (context) {
+                  if(widget.data?["comment"] != "") {
+                    return Text(
+                      widget.data?["comment"],
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 20
+                      ),
+                    );
+                  } else {
+                    return Text(
+                      "No comment",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white24
+                      ),
+                    );
+                  }
+                })
               ),
             ),
             getFormattedRating(widget.data?["rating"], false)

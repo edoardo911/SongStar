@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 Widget getFormattedRating(double num, bool big) {
   String rating = "";
@@ -40,4 +41,9 @@ Widget getFormattedRating(double num, bool big) {
       fontSize: fontSize
     ),
   );
+}
+
+String timestampToString(Timestamp ts) {
+  DateTime dt = ts.toDate();
+  return "${dt.day}-${dt.month}-${dt.year}";
 }

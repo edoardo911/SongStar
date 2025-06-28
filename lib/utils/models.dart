@@ -46,7 +46,6 @@ class Rating {
   final String songid;
   final String userid;
   final String comment;
-  final int stars;
   final double rating;
   final Timestamp timestamp;
 
@@ -55,7 +54,6 @@ class Rating {
     required this.songid,
     required this.userid,
     required this.comment,
-    required this.stars,
     required this.rating,
     required this.timestamp
   });
@@ -65,7 +63,6 @@ class Rating {
     songid: json["songid"],
     userid: json["userid"],
     comment: json["comment"],
-    stars: json["stars"],
     rating: json["rating"],
     timestamp: json["date"]
   );

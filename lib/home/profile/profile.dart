@@ -82,7 +82,7 @@ class _ProfileState extends State<Profile> {
     final querySnapshot = await FirebaseFirestore.instance
         .collection("ratings")
         .where("userid", isEqualTo: widget.userid)
-        .orderBy("date")
+        .orderBy("date", descending: true)
         .get();
 
     if(querySnapshot.docs.isNotEmpty) {
@@ -201,10 +201,18 @@ class _ProfileState extends State<Profile> {
               children: [
                 Row( //username
                   children: [
-                    Text(
-                      user!.username,
-                      style: TextStyle(
-                          fontSize: 50
+                    Container(
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width * 0.6
+                      ),
+                      child: Text(
+                        user!.username,
+                        maxLines: 1,
+                        softWrap: false,
+                        overflow: TextOverflow.fade,
+                        style: TextStyle(
+                            fontSize: 50
+                        ),
                       ),
                     ),
                     SizedBox(width: 16),
@@ -356,7 +364,7 @@ class _ProfileState extends State<Profile> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Ratings:",
+                "Last Rated:",
                 style: TextStyle(
                   fontSize: 32,
                 ),
@@ -388,7 +396,7 @@ class _ProfileState extends State<Profile> {
                   children: [
                     SizedBox(height: 16),
                     for(var rating in ratings)
-                      RatingWidget(rating: rating)
+                      RatingWidget(rating: rating, user: user)
                   ],
                 );
               }
