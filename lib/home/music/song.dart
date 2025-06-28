@@ -440,7 +440,7 @@ class _RatingWidgetState extends State<RatingWidget> {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          fontSize: 20
+                          fontSize: 16
                       ),
                     );
                   } else {

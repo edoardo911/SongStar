@@ -252,12 +252,17 @@ class _RatingWidgetState extends State<RatingWidget> {
             children: [
               Builder(builder: (context) {
                 if(widget.rating!.comment != "") {
-                  return Text(
-                    widget.rating!.comment,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 20
+                  return Container(
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width * 0.6,
+                    ),
+                    child: Text(
+                      widget.rating!.comment,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 16
+                      ),
                     ),
                   );
                 } else {
