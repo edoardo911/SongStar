@@ -162,12 +162,13 @@ class _SongState extends State<Song> {
               children: [
                 Text(
                   song["name"] ?? "",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 40
+                    fontSize: 36
                   ),
                 ),
                 SizedBox(height: 16),
-                Row(
+                Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -180,18 +181,24 @@ class _SongState extends State<Song> {
                           "token": token
                         }
                       ),
-                      child: Text(
-                        song["album"]["name"] ?? "",
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.deepPurpleAccent
+                      child: Container(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.8
+                        ),
+                        child: Text(
+                          song["album"]["name"] ?? "",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.deepPurpleAccent
+                          ),
                         ),
                       )
                     ),
                     Text(
                       "-",
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           color: Colors.deepPurpleAccent
                       ),
                     ),
@@ -207,7 +214,7 @@ class _SongState extends State<Song> {
                       child: Text(
                         song["artists"][0]["name"] ?? "",
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 16,
                             color: Colors.deepPurpleAccent
                         ),
                       )

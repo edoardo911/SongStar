@@ -37,7 +37,7 @@ class _AlbumState extends State<Album> {
           .where("albumid", isEqualTo: albumid)
           .get();
       if(query.docs.isNotEmpty) {
-        int sum = 0;
+        double sum = 0;
         for(var d in query.docs) {
           double r = d.data()["rating"];
           if(songRatings[d["songid"]] == null) {
@@ -45,7 +45,7 @@ class _AlbumState extends State<Album> {
           } else {
             songRatings[d["songid"]] = { "sum": songRatings[d["songid"]]["sum"] + r, "count": songRatings[d["songid"]]["count"] + 1 };
           }
-          sum += r.toInt();
+          sum += r;
         }
         rating = sum / query.docs.length;
       }
@@ -93,8 +93,9 @@ class _AlbumState extends State<Album> {
               children: [
                 Text(
                   album["name"],
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 40
+                    fontSize: 36
                   ),
                 ),
                 TextButton(
@@ -109,7 +110,7 @@ class _AlbumState extends State<Album> {
                   child: Text(
                     album["artists"][0]["name"],
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 16,
                       color: Colors.deepPurpleAccent
                     ),
                   ),
@@ -148,7 +149,10 @@ class SongAlbum extends StatelessWidget {
     double secD = millis / 1000;
     int mins = (secD / 60).toInt();
     int sec = (secD - mins * 60).toInt();
-    int digitsMinusOne = (log(sec) / log(10)).toInt();
+    int digitsMinusOne = 0;
+    if(sec != 0) {
+      digitsMinusOne = (log(sec) / log(10)).toInt();
+    }
     if(digitsMinusOne == 0) {
       return "$mins:0$sec";
     } else {
@@ -189,7 +193,7 @@ class SongAlbum extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   color: Colors.white
               ),
             ),

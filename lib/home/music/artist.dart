@@ -179,7 +179,7 @@ class AlbumWidget extends StatelessWidget {
             }
           ),
           style: TextButton.styleFrom(
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+            padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadiusGeometry.zero,
             )
@@ -199,14 +199,14 @@ class AlbumWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.width * 0.65 - 100,
                         child: Text(
                           data?["name"],
                           maxLines: 1,
                           softWrap: false,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontSize: 24,
+                              fontSize: 20,
                               color: Colors.white
                           ),
                         ),
