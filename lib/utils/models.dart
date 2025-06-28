@@ -66,7 +66,7 @@ class Rating {
     userid: json["userid"],
     comment: json["comment"],
     stars: json["stars"],
-    rating: (json["rating"] as int).toDouble(),
+    rating: json["rating"],
     timestamp: json["date"]
   );
 }

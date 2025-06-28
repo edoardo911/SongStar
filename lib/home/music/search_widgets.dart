@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 
 class SongSearch extends StatelessWidget {
   final Map<String, dynamic>? data;
+  final String? token;
 
   const SongSearch({
     super.key,
-    this.data
+    this.data,
+    this.token
   });
+
+  String getSongID(String songURL) {
+    int index = songURL.lastIndexOf("/");
+    return songURL.substring(index + 1, songURL.length);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,8 @@ class SongSearch extends StatelessWidget {
             context,
             "/song",
             arguments: {
-              "song": data?["external_urls"]["spotify"]
+              "song": getSongID(data?["external_urls"]["spotify"]),
+              "token": token
             }
         ),
         style: TextButton.styleFrom(
@@ -37,7 +45,7 @@ class SongSearch extends StatelessWidget {
                 ),
                 SizedBox(width: 10),
                 SizedBox(
-                  width: 150,
+                  width: MediaQuery.of(context).size.width * 0.4,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -83,11 +91,18 @@ class SongSearch extends StatelessWidget {
 
 class AlbumSearch extends StatelessWidget {
   final Map<String, dynamic>? data;
+  final String? token;
 
   const AlbumSearch({
     super.key,
-    this.data
+    this.data,
+    this.token
   });
+
+  String getAlbumID(String albumURL) {
+    int index = albumURL.lastIndexOf("/");
+    return albumURL.substring(index + 1, albumURL.length);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +111,8 @@ class AlbumSearch extends StatelessWidget {
             context,
             "/album",
             arguments: {
-              "album": data?["external_urls"]["spotify"]
+              "album": getAlbumID(data?["external_urls"]["spotify"]),
+              "token": token
             }
         ),
         style: TextButton.styleFrom(
@@ -118,7 +134,7 @@ class AlbumSearch extends StatelessWidget {
                 ),
                 SizedBox(width: 10),
                 SizedBox(
-                  width: 150,
+                  width: MediaQuery.of(context).size.width * 0.4,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -163,11 +179,18 @@ class AlbumSearch extends StatelessWidget {
 
 class ArtistSearch extends StatelessWidget {
   final Map<String, dynamic>? data;
+  final String? token;
 
   const ArtistSearch({
     super.key,
-    this.data
+    this.data,
+    this.token
   });
+
+  String getArtistID(String artistURL) {
+    int index = artistURL.lastIndexOf("/");
+    return artistURL.substring(index + 1, artistURL.length);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +199,8 @@ class ArtistSearch extends StatelessWidget {
             context,
             "/artist",
             arguments: {
-              "artist": data?["external_urls"]["spotify"]
+              "artist": getArtistID(data?["external_urls"]["spotify"]),
+              "token": token
             }
         ),
         style: TextButton.styleFrom(
@@ -200,6 +224,7 @@ class ArtistSearch extends StatelessWidget {
                         data?["images"][0]["url"],
                         width: 30,
                         height: 30,
+                        fit: BoxFit.cover,
                       ),
                     );
                   } else {

@@ -365,7 +365,7 @@ class _ProfileState extends State<Profile> {
             Builder(builder: (context) {
               if(ratings.isEmpty) {
                 return SizedBox(
-                  height: MediaQuery.of(context).size.height - 450,
+                  height: MediaQuery.of(context).size.height * 0.4,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -386,7 +386,9 @@ class _ProfileState extends State<Profile> {
               } else {
                 return Column(
                   children: [
-                    //TODO ratings list
+                    SizedBox(height: 16),
+                    for(var rating in ratings)
+                      RatingWidget(rating: rating)
                   ],
                 );
               }

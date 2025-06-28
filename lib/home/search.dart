@@ -167,7 +167,7 @@ class _SearchState extends State<Search> {
                     children: [
                       for(var s in songs)
                         if(s != null)
-                          SongSearch(data: s)
+                          SongSearch(data: s, token: spotifyToken)
                     ],
                   );
                 } else {
@@ -179,7 +179,7 @@ class _SearchState extends State<Search> {
                     children: [
                       for(var a in artists)
                         if(a != null)
-                          ArtistSearch(data: a)
+                          ArtistSearch(data: a, token: spotifyToken)
                     ],
                   );
                 } else {
@@ -191,7 +191,7 @@ class _SearchState extends State<Search> {
                     children: [
                       for(var album in albums)
                         if(album != null)
-                          AlbumSearch(data: album)
+                          AlbumSearch(data: album, token: spotifyToken)
                     ],
                   );
                 } else {

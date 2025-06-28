@@ -54,16 +54,16 @@ class _EditProfileState extends State<EditProfile> {
 
     //soundcloud
     if(scController.text != "" &&
-        !scController.text.startsWith("https://soundcloud.com/") &&
+        !scController.text.startsWith("https://on.soundcloud.com/") &&
         scController.text.allMatches("/").length == 3 &&
-        scController.text.length > 23) {
+        scController.text.length > 26) {
       setState(() {
         scError = true;
         return;
       });
     }
     if(scController.text != "") {
-      sc = scController.text.substring(23, scController.text.length);
+      sc = scController.text.substring(26, scController.text.length);
     }
 
     if(amController.text != "" &&
@@ -110,9 +110,15 @@ class _EditProfileState extends State<EditProfile> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       usernameController.text = user!.username;
-      scController.text = user!.sc;
-      amController.text = user!.am;
-      spotifyController.text = user!.spotify;
+      if(user!.sc != "") {
+        scController.text = "https://on.soundcloud.com/${user!.sc}";
+      }
+      if(user!.am != "") {
+        amController.text = "https://music.apple.com/profile/${user!.am}";
+      }
+      if(user!.spotify != "") {
+        spotifyController.text = "https://open.spotify.com/user/${user!.spotify}";
+      }
     });
   }
 

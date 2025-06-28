@@ -5,6 +5,7 @@ class SSTextField extends StatelessWidget {
   final TextInputType type;
   final String? hintText;
   final bool obscureText;
+  final int maxLines;
   final void Function(String)? onSubmitted;
 
   const SSTextField({
@@ -13,7 +14,8 @@ class SSTextField extends StatelessWidget {
     this.type = TextInputType.text,
     this.hintText,
     this.onSubmitted,
-    this.obscureText = false
+    this.obscureText = false,
+    this.maxLines = 1
   });
 
   @override
@@ -23,6 +25,7 @@ class SSTextField extends StatelessWidget {
       obscureText: obscureText,
       keyboardType: type,
       obscuringCharacter: "⭒",
+      maxLines: maxLines,
       onSubmitted: onSubmitted,
       decoration: InputDecoration(
         hintText: hintText,
@@ -105,6 +108,36 @@ class SSDropdownMenu extends StatelessWidget {
           )
         ),
       ),
+    );
+  }
+}
+
+class SSSlider extends StatelessWidget {
+  final double? value;
+  final double? min;
+  final double? max;
+  final String? label;
+  final void Function(double)? onChanged;
+
+  const SSSlider({
+    super.key,
+    this.value,
+    this.min,
+    this.max,
+    this.label,
+    this.onChanged
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Slider(
+      value: value ?? 0.0,
+      min: min ?? 0.0,
+      max: max ?? 0.0,
+      divisions: 40,
+      label: label ?? "",
+      activeColor: Colors.deepPurpleAccent,
+      onChanged: onChanged,
     );
   }
 }
