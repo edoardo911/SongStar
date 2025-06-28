@@ -195,13 +195,6 @@ class _SongState extends State<Song> {
                         ),
                       )
                     ),
-                    Text(
-                      "-",
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.deepPurpleAccent
-                      ),
-                    ),
                     TextButton(
                       onPressed: () => Navigator.pushNamed(
                         context,

@@ -91,8 +91,9 @@ class _ArtistState extends State<Artist> {
                 children: [
                   Text(
                     artistData["name"],
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 40
+                      fontSize: 40
                     ),
                   ),
                   SizedBox(height: 16),
@@ -134,7 +135,7 @@ class _ArtistState extends State<Artist> {
                       concat,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
                           color: Colors.deepPurpleAccent
                       ),
                     );
