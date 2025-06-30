@@ -187,7 +187,7 @@ class SongAlbum extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            width: MediaQuery.of(context).size.height * 0.3,
+            width: MediaQuery.of(context).size.width - 180,
             child: Text(
               data?["name"],
               maxLines: 1,

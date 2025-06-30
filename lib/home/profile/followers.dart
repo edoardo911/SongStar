@@ -64,28 +64,31 @@ class EmptyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height / 2 - 120),
-          Column(
-              children: [
-                Icon(
-                  Icons.not_interested,
-                  size: 32,
-                  color: Colors.white24,
-                ),
-                Text(
-                  "This user has no followers",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white24
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Center(
+        child: Column(
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height / 2 - 120),
+            Column(
+                children: [
+                  Icon(
+                    Icons.not_interested,
+                    size: 32,
+                    color: Colors.white24,
                   ),
-                )
-              ]
-          ),
-        ],
+                  Text(
+                    "This user has no followers",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white24
+                    ),
+                  )
+                ]
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -31,7 +31,7 @@ class _ArtistState extends State<Artist> {
       artistData = jsonDecode(response.body);
 
       final response2 = await http.get(
-        Uri.parse("https://api.spotify.com/v1/artists/$id/albums"),
+        Uri.parse("https://api.spotify.com/v1/artists/$id/albums?sort=release_date&limit=30"),
         headers: {
           "Authorization": "Bearer $token"
         }
@@ -141,7 +141,6 @@ class _ArtistState extends State<Artist> {
                     );
                   }),
                   SizedBox(height: 16),
-                  //TODO if
                   for(var a in albums["items"])
                     AlbumWidget(data: a, ratings: ratings, token: token)
                 ],
@@ -200,7 +199,7 @@ class AlbumWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.65 - 100,
+                        width: MediaQuery.of(context).size.width - 230,
                         child: Text(
                           data?["name"],
                           maxLines: 1,

@@ -236,22 +236,38 @@ class ArtistSearch extends StatelessWidget {
                   }
                 }),
                 SizedBox(width: 10),
-                Text(
-                  data?["name"],
-                  style: TextStyle(
+                Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.9 - 130,
+                  ),
+                  child: Text(
+                    data?["name"],
+                    softWrap: false,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 20
+                    ),
                   ),
-                ),
+                )
               ],
             ),
-            Text(
-              (data?["followers"]["total"] as int).toString(),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16
+            Container(
+              constraints: BoxConstraints(
+                maxWidth: 100,
               ),
-            ),
+              child: Text(
+                (data?["followers"]["total"] as int).toString(),
+                maxLines: 1,
+                softWrap: false,
+                overflow: TextOverflow.fade,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16
+                ),
+              ),
+            )
           ],
         )
     );

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../utils/custom_widgets.dart';
 import '../../utils/models.dart';
@@ -96,9 +97,26 @@ class _ProfileState extends State<Profile> {
     return ratings.length;
   }
 
-  Future<void> launchAppOrWebsite(String userid) async {
-    final String appUrl = "spotify:://user/$userid";
-    final String webUrl = "https://open.spotify.com/user/$userid";
+  Future<void> launchAppOrWebsite(String userid, int type) async {
+    String baseApp = "";
+    String baseWeb = "";
+    switch(type) {
+      case 0:
+        baseApp = "spotify:://user/";
+        baseWeb = "https://open.spotify.com/user/";
+        break;
+      case 1:
+        baseApp = "soundcloud://users:";
+        baseWeb = "https://soundcloud.com/";
+        break;
+      case 2:
+        baseApp = "https://music.apple.com/profile/";
+        baseWeb = "https://music.apple.com/profile/";
+        break;
+    }
+
+    final String appUrl = "$baseApp$userid";
+    final String webUrl = "$baseWeb$userid";
 
     if(await canLaunchUrl(Uri.parse(appUrl))) {
     await launchUrl(Uri.parse(appUrl));
@@ -155,6 +173,14 @@ class _ProfileState extends State<Profile> {
       "user2": widget.userid
     });
 
+    Fluttertoast.showToast(
+        msg: "User followed!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black87,
+        textColor: Colors.white,
+        fontSize: 16
+    );
     setState(() {
       follow = true;
       user!.followers++; //TODO add new doc to list
@@ -172,6 +198,14 @@ class _ProfileState extends State<Profile> {
     await FirebaseFirestore.instance.collection("followings")
         .doc(followDoc.docs[0].id)
         .delete();
+    Fluttertoast.showToast(
+        msg: "User unfollowed!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black87,
+        textColor: Colors.white,
+        fontSize: 16
+    );
     setState(() {
       follow = false;
       followers.removeWhere((var e) => e.data()["user1"] == yourID && e.data()["user2"] == widget.userid);
@@ -306,7 +340,7 @@ class _ProfileState extends State<Profile> {
                 children: [
                   if(user!.spotify != "")
                     TextButton(
-                      onPressed: () => launchAppOrWebsite(user!.spotify),
+                      onPressed: () => launchAppOrWebsite(user!.spotify, 0),
                       child: Icon(
                         FontAwesomeIcons.spotify,
                         size: 32,
@@ -315,7 +349,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   if(user!.sc != "")
                     TextButton(
-                      onPressed: () => launchAppOrWebsite(user!.sc),
+                      onPressed: () => launchAppOrWebsite(user!.sc, 1),
                       child: Icon(
                         FontAwesomeIcons.soundcloud,
                         size: 32,
@@ -324,7 +358,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   if(user!.am != "")
                     TextButton(
-                      onPressed: () => launchAppOrWebsite(user!.am),
+                      onPressed: () => launchAppOrWebsite(user!.am, 2),
                       child: Icon(
                         FontAwesomeIcons.apple,
                         size: 32,
